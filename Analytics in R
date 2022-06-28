@@ -7,15 +7,27 @@ library(hms) #for time
 library(data.table) #for exporting data frame
 
 #Load files in last 12 months (From June 2021 to May 2022)
-Jun2021 <- read_csv("202106-divvy-tripdata.csv")
-Jul2021 <- read_csv("202107-divvy-tripdata.csv")
-Aug2021 <- read_csv("202108-divvy-tripdata.csv")
-Sep2021 <- read_csv("202109-divvy-tripdata.csv")
-Oct2021 <- read_csv("202110-divvy-tripdata.csv")
-Nov2021 <- read_csv("202111-divvy-tripdata.csv")
-Dec2021 <- read_csv("202112-divvy-tripdata.csv")
-Jan2022 <- read_csv("202201-divvy-tripdata.csv")
-Feb2022 <- read_csv("202202-divvy-tripdata.csv")
-Mar2022 <- read_csv("202203-divvy-tripdata.csv")
-Apr2022 <- read_csv("202204-divvy-tripdata.csv")
-May2022 <- read_csv("202205-divvy-tripdata.csv")
+jun2021 <- read_csv("202106-divvy-tripdata.csv")
+jul2021 <- read_csv("202107-divvy-tripdata.csv")
+aug2021 <- read_csv("202108-divvy-tripdata.csv")
+sep2021 <- read_csv("202109-divvy-tripdata.csv")
+oct2021 <- read_csv("202110-divvy-tripdata.csv")
+nov2021 <- read_csv("202111-divvy-tripdata.csv")
+dec2021 <- read_csv("202112-divvy-tripdata.csv")
+jan2022 <- read_csv("202201-divvy-tripdata.csv")
+feb2022 <- read_csv("202202-divvy-tripdata.csv")
+mar2022 <- read_csv("202203-divvy-tripdata.csv")
+apr2022 <- read_csv("202204-divvy-tripdata.csv")
+may2022 <- read_csv("202205-divvy-tripdata.csv")
+
+#Merge All Data Into One Year
+cyclistic_data <- rbind (jun2021, jul2021, aug2021, sep2021, oct2021, nov2021, dec2021, jan2022, feb2022, mar2022, apr2022, may2022)
+
+#Remove Data Each Month
+remove(jun2021, jul2021, aug2021, sep2021, oct2021, nov2021, dec2021, jan2022, feb2022, mar2022, apr2022, may2022)
+
+#Create New Data Frame to Add New Column
+cyclistic_new <- cyclistic_data
+
+#Calculate Ride Length
+cyclistic_new$ride_length <- difftime(cyclistic_data$ended_at, cyclistic_data$started_at, units = "mins")

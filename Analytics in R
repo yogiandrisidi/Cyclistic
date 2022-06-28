@@ -31,3 +31,14 @@ cyclistic_new <- cyclistic_data
 
 #Calculate Ride Length
 cyclistic_new$ride_length <- difftime(cyclistic_data$ended_at, cyclistic_data$started_at, units = "mins")
+
+#Create New Column
+cyclistic_new$date <- as.Date(cyclistic_new$started_at) #default format is yyyy-mm-dd, use start date
+cyclistic_new$day_of_week <- wday(cyclistic_data$started_at) #calculate the day of the week 
+cyclistic_new$day_of_week <- format(as.Date(cyclistic_new$date), "%A") #create column for day of week
+cyclistic_new$month <- format(as.Date(cyclistic_new$date), "%m")#create column for month
+cyclistic_new$day <- format(as.Date(cyclistic_new$date), "%d") #create column for day
+cyclistic_new$year <- format(as.Date(cyclistic_new$date), "%Y") #create column for year
+cyclistic_new$time <- format(as.Date(cyclistic_new$date), "%H:%M:%S") #format time as HH:MM:SS
+cyclistic_new$time <- as_hms((cyclistic_data$started_at)) #create new column for time
+cyclistic_new$hour <- hour(cyclistic_new$time) #create new column for hour
